@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Jetbrains Gogland
+Comment=JetBrains Gogland (Go IDE)
+Icon=/opt/gogland/bin/gogland.png
+Exec={{ home }}/{{ command }}
+Terminal=false
+Type=Application
