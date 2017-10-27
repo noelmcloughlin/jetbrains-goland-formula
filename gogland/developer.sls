@@ -1,6 +1,6 @@
 {% from "gogland/map.jinja" import gogland with context %}
 
-{% if gogland.prefs.user not in (None, 'undefined_user') %}
+{% if gogland.prefs.user not in (None, 'undfined', 'undefined_user') %}
 
   {% if grains.os == 'MacOS' %}
 gogland-desktop-shortcut-clean:
@@ -20,15 +20,17 @@ gogland-desktop-shortcut-add:
     - context:
       user: {{ gogland.prefs.user }}
       homes: {{ gogland.homes }}
+      edition: {{ gogland.jetbrains.edition }}
   cmd.run:
     - name: /tmp/mac_shortcut.sh {{ gogland.jetbrains.edition }}
     - runas: {{ gogland.prefs.user }}
     - require:
       - file: gogland-desktop-shortcut-add
    {% else %}
+   #Linux
   file.managed:
     - source: salt://gogland/files/gogland.desktop
-    - name: {{ gogland.homes }}/{{ gogland.prefs.user }}/Desktop/gogland.desktop
+    - name: {{ gogland.homes }}/{{ gogland.prefs.user }}/Desktop/gogland{{ gogland.jetbrains.edition }}.desktop
     - user: {{ gogland.prefs.user }}
     - makedirs: True
       {% if salt['grains.get']('os_family') in ('Suse') %} 
@@ -39,35 +41,35 @@ gogland-desktop-shortcut-add:
     - mode: 644
     - force: True
     - template: jinja
-    - onlyif: test -f {{ gogland.symhome }}/{{ gogland.command }}
+    - onlyif: test -f {{ gogland.jetbrains.realcmd }}
     - context:
-      home: {{ gogland.symhome }}
+      home: {{ gogland.jetbrains.realhome }}
       command: {{ gogland.command }}
    {% endif %}
 
 
-  {% if gogland.prefs.importurl or gogland.prefs.importdir %}
+  {% if gogland.prefs.jarurl or gogland.prefs.jardir %}
 
 gogland-prefs-importfile:
-   {% if gogland.prefs.importdir %}
+   {% if gogland.prefs.jardir %}
   file.managed:
-    - onlyif: test -f {{ gogland.prefs.importdir }}/{{ gogland.prefs.myfile }}
-    - name: {{ gogland.homes }}/{{ gogland.prefs.user }}/{{ gogland.prefs.myfile }}
-    - source: {{ gogland.prefs.importdir }}/{{ gogland.prefs.myfile }}
+    - onlyif: test -f {{ gogland.prefs.jardir }}/{{ gogland.prefs.jarfile }}
+    - name: {{ gogland.homes }}/{{ gogland.prefs.user }}/{{ gogland.prefs.jarfile }}
+    - source: {{ gogland.prefs.jardir }}/{{ gogland.prefs.jarfile }}
     - user: {{ gogland.prefs.user }}
     - makedirs: True
-        {% if salt['grains.get']('os_family') in ('Suse') %}
+        {% if grains.os_family in ('Suse') %}
     - group: users
         {% elif grains.os not in ('MacOS') %}
         #inherit Darwin ownership
     - group: {{ gogland.prefs.user }}
         {% endif %}
-    - if_missing: {{ gogland.homes }}/{{ gogland.prefs.user }}/{{ gogland.prefs.myfile }}
+    - if_missing: {{ gogland.homes }}/{{ gogland.prefs.user }}/{{ gogland.prefs.jarfile }}
    {% else %}
   cmd.run:
-    - name: curl -o {{gogland.homes}}/{{gogland.prefs.user}}/{{gogland.prefs.myfile}} {{gogland.prefs.importurl}}
+    - name: curl -o {{gogland.homes}}/{{gogland.prefs.user}}/{{gogland.prefs.jarfile}} {{gogland.prefs.jarurl}}
     - runas: {{ gogland.prefs.user }}
-    - if_missing: {{ gogland.homes }}/{{ gogland.prefs.user }}/{{ gogland.prefs.myfile }}
+    - if_missing: {{ gogland.homes }}/{{ gogland.prefs.user }}/{{ gogland.prefs.jarfile }}
    {% endif %}
 
   {% endif %}

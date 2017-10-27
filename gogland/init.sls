@@ -5,16 +5,14 @@ gogland-remove-prev-archive:
   file.absent:
     - name: '{{ gogland.tmpdir }}/{{ gogland.dl.archive_name }}'
     - require_in:
-      - gogland-install-dir
+      - gogland-extract-dirs
 
-gogland-install-dir:
+gogland-extract-dirs:
   file.directory:
     - names:
-      - '{{ gogland.alt.realhome }}'
       - '{{ gogland.tmpdir }}'
 {% if grains.os not in ('MacOS', 'Windows') %}
-      - '{{ gogland.prefix }}'
-      - '{{ gogland.symhome }}'
+      - '{{ gogland.jetbrains.realhome }}'
     - user: root
     - group: root
     - mode: 755
@@ -31,19 +29,6 @@ gogland-download-archive:
         attempts: {{ gogland.dl.retries }}
         interval: {{ gogland.dl.interval }}
       {% endif %}
-
-{% if grains.os not in ('MacOS') %}
-gogland-unpacked-dir:
-  file.directory:
-    - name: '{{ gogland.alt.realhome }}'
-    - user: root
-    - group: root
-    - mode: 755
-    - makedirs: True
-    - force: True
-    - onchanges:
-      - cmd: gogland-download-archive
-{% endif %}
 
 {%- if gogland.dl.src_hashsum %}
    # Check local archive using hashstring for older Salt / MacOS.
@@ -71,13 +56,14 @@ gogland-package-install:
     - force: True
     - allow_untrusted: True
 {% else %}
+  # Linux
   archive.extracted:
     - source: 'file://{{ gogland.tmpdir }}/{{ gogland.dl.archive_name }}'
-    - name: '{{ gogland.alt.realhome }}'
+    - name: '{{ gogland.jetbrains.realhome }}'
     - archive_format: {{ gogland.dl.archive_type }}
        {% if grains['saltversioninfo'] < [2016, 11, 0] %}
     - tar_options: {{ gogland.dl.unpack_opts }}
-    - if_missing: '{{ gogland.alt.realcmd }}'
+    - if_missing: '{{ gogland.jetbrains.realcmd }}'
        {% else %}
     - options: {{ gogland.dl.unpack_opts }}
        {% endif %}
@@ -95,36 +81,14 @@ gogland-package-install:
 
 gogland-remove-archive:
   file.absent:
-    - names:
-      # todo: maybe just delete the tmpdir itself
-      - '{{ gogland.tmpdir }}/{{ gogland.dl.archive_name }}'
-      - '{{ gogland.tmpdir }}/{{ gogland.dl.archive_name }}.sha256'
+    - name: '{{ gogland.tmpdir }}'
     - onchanges:
 {%- if grains.os in ('Windows') %}
       - pkg: gogland-package-install
 {%- elif grains.os in ('MacOS') %}
       - macpackage: gogland-package-install
 {% else %}
+      #Unix
       - archive: gogland-package-install
-
-gogland-home-symlink:
-  file.symlink:
-    - name: '{{ gogland.symhome }}'
-    - target: '{{ gogland.alt.realhome }}'
-    - force: True
-    - onchanges:
-      - archive: gogland-package-install
-
-# Update system profile with PATH
-gogland-config:
-  file.managed:
-    - name: /etc/profile.d/gogland.sh
-    - source: salt://gogland/files/gogland.sh
-    - template: jinja
-    - mode: 644
-    - user: root
-    - group: root
-    - context:
-      gogland_home: '{{ gogland.symhome }}'
 
 {% endif %}

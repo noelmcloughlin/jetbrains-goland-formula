@@ -1,12 +1,12 @@
 gogland:
-  jetbrains:
-    #Default edition is None (30 day trial, Student license too)
-    edition: 
   dl:
     retries: 1
     interval: 30
-  alt:
-    priority: 170
+  linux:
+    altpriority: 170
   prefs:
     user: undefined_user
+    jarurl:
+    jardir:
+    jarfile: gogland-settings.jar
  

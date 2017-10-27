@@ -1,2 +1,2 @@
-export GOGLAND_HOME={{ gogland_home }}
+export GOGLAND_HOME={{ home }}
 export PATH=${PATH}:${GOGLAND_HOME}/bin

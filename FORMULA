@@ -1,4 +1,4 @@
-name: Gogland
+name: gogland
 os: gnu-linux, MacOS, Windows
 os_family: RedHat, Debian, Suse, FreeBSD, Archlinux, MacOS
 version: 201710
