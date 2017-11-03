@@ -11,7 +11,7 @@ gogland-extract-dirs:
   file.directory:
     - names:
       - '{{ gogland.tmpdir }}'
-{% if grains.os not in ('MacOS', 'Windows') %}
+{% if grains.os not in ('MacOS', 'Windows',) %}
       - '{{ gogland.jetbrains.realhome }}'
     - user: root
     - group: root
@@ -33,7 +33,7 @@ gogland-download-archive:
 {%- if gogland.dl.src_hashsum %}
    # Check local archive using hashstring for older Salt / MacOS.
    # (see https://github.com/saltstack/salt/pull/41914).
-  {%- if grains['saltversioninfo'] <= [2016, 11, 6] or grains.os in ('MacOS') %}
+  {%- if grains['saltversioninfo'] <= [2016, 11, 6] or grains.os in ('MacOS',) %}
 gogland-check-archive-hash:
    module.run:
      - name: file.check_hash
@@ -83,9 +83,9 @@ gogland-remove-archive:
   file.absent:
     - name: '{{ gogland.tmpdir }}'
     - onchanges:
-{%- if grains.os in ('Windows') %}
+{%- if grains.os in ('Windows',) %}
       - pkg: gogland-package-install
-{%- elif grains.os in ('MacOS') %}
+{%- elif grains.os in ('MacOS',) %}
       - macpackage: gogland-package-install
 {% else %}
       #Unix

@@ -1,6 +1,6 @@
 {% from "gogland/map.jinja" import gogland with context %}
 
-{% if gogland.prefs.user not in (None, 'undfined', 'undefined_user') %}
+{% if gogland.prefs.user not in (None, 'undefined_user', 'undefined', '',) %}
 
   {% if grains.os == 'MacOS' %}
 gogland-desktop-shortcut-clean:
@@ -33,7 +33,7 @@ gogland-desktop-shortcut-add:
     - name: {{ gogland.homes }}/{{ gogland.prefs.user }}/Desktop/gogland{{ gogland.jetbrains.edition }}.desktop
     - user: {{ gogland.prefs.user }}
     - makedirs: True
-      {% if salt['grains.get']('os_family') in ('Suse') %} 
+      {% if salt['grains.get']('os_family') in ('Suse',) %} 
     - group: users
       {% else %}
     - group: {{ gogland.prefs.user }}
@@ -58,9 +58,9 @@ gogland-prefs-importfile:
     - source: {{ gogland.prefs.jardir }}/{{ gogland.prefs.jarfile }}
     - user: {{ gogland.prefs.user }}
     - makedirs: True
-        {% if grains.os_family in ('Suse') %}
+        {% if grains.os_family in ('Suse',) %}
     - group: users
-        {% elif grains.os not in ('MacOS') %}
+        {% elif grains.os not in ('MacOS',) %}
         #inherit Darwin ownership
     - group: {{ gogland.prefs.user }}
         {% endif %}

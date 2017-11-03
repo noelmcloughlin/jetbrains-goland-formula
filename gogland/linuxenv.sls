@@ -1,6 +1,6 @@
 {% from "gogland/map.jinja" import gogland with context %}
 
-{% if grains.os not in ('MacOS', 'Windows') %}
+{% if grains.os not in ('MacOS', 'Windows',) %}
 
 gogland-home-symlink:
   file.symlink:
@@ -22,7 +22,8 @@ gogland-config:
       home: '{{ gogland.jetbrains.home }}/gogland'
 
   # Debian alternatives
-  {% if grains.os_family not in ('Arch') %}
+  {% if gogland.linux.altpriority > 0 %}
+     {% if grains.os_family not in ('Arch',) %}
 
 # Add gogland-home to alternatives system
 gogland-home-alt-install:
@@ -57,6 +58,7 @@ gogland-alt-set:
     - onchanges:
       - alternatives: gogland-alt-install
 
+     {% endif %}
   {% endif %}
 
 {% endif %}

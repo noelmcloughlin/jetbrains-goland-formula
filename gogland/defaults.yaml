@@ -25,11 +25,12 @@ gogland:
     src_hashsum:
 
   linux:
-    altpriority: 170
     symlink: /usr/bin/gogland
+    #debian alternatives disabled by default. To activate, set nonzero 'altpriority' pillar.
+    altpriority: 0
 
   prefs:
-    user: undefined_user
+    user:
     #See https://www.jetbrains.com/help/gogland/exporting-and-importing-settings.html
     jarurl:
     jardir:
