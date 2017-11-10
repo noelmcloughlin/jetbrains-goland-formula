@@ -1,7 +1,7 @@
 #Default Look Dictionary
 
 gogland:
-  prefix: /usr/lib/jetbrains
+  prefix: /usr/local/jetbrains
   tmpdir: /tmp/jetbrainstmp
   command: /bin/gogland.sh
   homes: /home
