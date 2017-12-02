@@ -1,5 +1,5 @@
 ========
-gogland
+jetbrains-gogland
 ========
 
 Formula for latest gogland IDE from Jetbrains. 
@@ -9,6 +9,8 @@ Formula for latest gogland IDE from Jetbrains.
 
     See the full `Salt Formulas installation and usage instructions
     <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
+    Refer to pillar.example and defaults.yaml for configurable values.
+    To be tested on Linux (Ubuntu, Fedora, Arch, and Suse), MacOS.
     
 Available states
 ================
@@ -39,6 +41,3 @@ On Linux, the PATH is set for all system users by adding software profile to /et
 
 Enable Debian alternatives by setting nonzero 'altpriority' pillar value; otherwise feature is disabled.
 
-
-Please see the pillar.example for configuration.
-To be tested on Linux (Ubuntu, Fedora, Arch, and Suse), MacOS.

@@ -11,8 +11,7 @@ gogland:
     home: /opt/jetbrains
     uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
     #See https://www.jetbrains.com/help/gogland/meet-gogland.html
-    #Default is gogland
-    product: WS 
+    product: GO 
     edition:
 
   dl:
