@@ -21,6 +21,12 @@
 {% do defs.gogland.update(osmap) %}
 {% set ide = salt['pillar.get']( 'gogland', default=defs.gogland, merge=True) %}
 
+# Get user's group name from pillar or 'id' command
+{%- if not ide.prefs.group %}
+  {%- set usergroup = salt['cmd.run']('id -gn', runas=ide.prefs.user, output_loglevel='quiet',) or None %}
+  {%- do ide.prefs.update({'group': usergroup,}) %}
+{% endif %}
+
 # Get dynamic release metadata
 {%- set pcode = pcode ~ ide.jetbrains.edition %}
 {% if grains.os == 'MacOS' or ide.jetbrains.edition in ('None',) %}

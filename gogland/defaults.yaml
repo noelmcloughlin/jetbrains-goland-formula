@@ -30,6 +30,7 @@ gogland:
 
   prefs:
     user:
+    group:
     #See https://www.jetbrains.com/help/gogland/exporting-and-importing-settings.html
     jarurl:
     jardir:
