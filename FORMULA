@@ -1,8 +1,8 @@
-name: gogland
+name: goland
 os: gnu-linux, MacOS, Windows
 os_family: RedHat, Debian, Suse, FreeBSD, Archlinux, MacOS
 version: 201710
 release: 1
 minimum_version: 2016.3
-summary: Formula for installing Jetbrains Gogland
-description: Formula for installing Jetbrains Gogland IDE for GO developers
+summary: Formula for installing Jetbrains Goland
+description: Formula for installing Jetbrains Goland IDE for GO developers

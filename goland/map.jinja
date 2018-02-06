@@ -3,26 +3,26 @@
 
 # Start with defaults, merge osmapping, then pillars.
 
-{% import_yaml 'gogland/defaults.yaml' as defs %}
+{% import_yaml 'goland/defaults.yaml' as defs %}
 {% set osmap = salt['grains.filter_by']({
         'default':{
         },
 
         'MacOS':  { 'prefix' : '/Applications/Goland',
                     'homes'  : '/Users',
-                    'command': '/gogland',
+                    'command': '/goland',
                     'osflavour': 'mac',
         },
         'Windows':{ 'prefix' : 'C:\\Program files',
                     'homes'  : 'C:\\Users',
                     'tmpdir' : 'C:\\temp\\jetbrainstmp\\',
-                    'command': '\\gogland.exe',
+                    'command': '\\goland.exe',
                     'osflavour': 'windows',
         },
   }, grain="os",
 ) %}
-{% do defs.gogland.update(osmap) %}
-{% set ide = salt['pillar.get']( 'gogland', default=defs.gogland, merge=True) %}
+{% do defs.goland.update(osmap) %}
+{% set ide = salt['pillar.get']( 'goland', default=defs.goland, merge=True) %}
 
 # Get user's group name from pillar or 'id' command
 {%- if not ide.prefs.group %}
@@ -38,11 +38,11 @@
 {%- set jdata = salt['cmd.run']('curl {0} {1}{2}'.format(ide.dl.opts, ide.jetbrains.uri, pcode))|load_yaml %}
 
 # Extact download details
-{% set _home = '{0}/gogland-{1}'.format( ide.prefix, jdata[ pcode ][0]['version']) %}
+{% set _home = '{0}/goland-{1}'.format( ide.prefix, jdata[ pcode ][0]['version']) %}
 {% if grains.os == 'MacOS' %}
   {% set _home = '{0} {1}.app/Contents/MacOS'.format(ide.prefix, jdata[ pcode ][0]['majorVersion']) %}
 {% elif ide.jetbrains.edition %} 
-  {% set _home = '{0}/gogland-{1}-{2}'.format( ide.prefix, ide.jetbrains.edition, jdata[ pcode ][0]['version']) %}
+  {% set _home = '{0}/goland-{1}-{2}'.format( ide.prefix, ide.jetbrains.edition, jdata[ pcode ][0]['version']) %}
 {% endif %}
 {%- set src_hashurl = jdata[ pcode ][0]['downloads'][ ide.osflavour ]['checksumLink'] %}
 {%- set src_hashsum  = salt['cmd.run']('curl -s {0}'.format( src_hashurl )).split(' ')[0] %}
@@ -57,5 +57,5 @@
        'unpack_opts' : ' -z -C ' ~  _home ~ ' --strip-components=1' },
     )
 %}
-{% set gogland = ide %}
+{% set goland = ide %}
 

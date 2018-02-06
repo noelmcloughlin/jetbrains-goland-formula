@@ -1,16 +1,16 @@
 #Default Look Dictionary
 
-gogland:
+goland:
   prefix: /usr/local/jetbrains
   tmpdir: /tmp/jetbrainstmp
-  command: /bin/gogland.sh
+  command: /bin/goland.sh
   homes: /home
   osflavour: linux
 
   jetbrains:
     home: /opt/jetbrains
     uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
-    #See https://www.jetbrains.com/help/gogland/meet-gogland.html
+    #See https://www.jetbrains.com/help/goland/meet-goland.html
     product: GO 
     edition:
 
@@ -24,15 +24,15 @@ gogland:
     src_hashsum:
 
   linux:
-    symlink: /usr/bin/gogland
+    symlink: /usr/bin/goland
     #debian alternatives disabled by default. To activate, set nonzero 'altpriority' pillar.
     altpriority: 0
 
   prefs:
     user:
     group:
-    #See https://www.jetbrains.com/help/gogland/exporting-and-importing-settings.html
+    #See https://www.jetbrains.com/help/goland/exporting-and-importing-settings.html
     jarurl:
     jardir:
-    jarfile: gogland-settings.jar
+    jarfile: goland-settings.jar
 
