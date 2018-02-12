@@ -1,4 +1,4 @@
-gogland:
+goland:
   dl:
     retries: 1
     interval: 30
@@ -11,4 +11,4 @@ gogland:
     #group:
     jarurl:
     jardir:
-    jarfile: gogland-settings.jar
+    jarfile: goland-settings.jar
