@@ -7,6 +7,8 @@ Formula for latest goland IDE from Jetbrains.
 .. note::
     **** THIS FORMULA IS NOT VALID YET - PENDING 1ST OFFICIAL RELEASE OF GOLAND ****
 
+    Use the `EAP VERSION INSTEAD: <https://www.jetbrains.com/go/nextversion/>`_. 
+
     See the full `Salt Formulas installation and usage instructions
     <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
     Refer to pillar.example and defaults.yaml for configurable values.
