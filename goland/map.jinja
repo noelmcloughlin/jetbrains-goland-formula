@@ -1,28 +1,19 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-# Start with defaults, merge osmapping, then pillars.
+{% import_yaml 'goland/defaults.yaml' as defaults %}
+{% import_yaml "goland/osmap.yaml" as osmap %}
 
-{% import_yaml 'goland/defaults.yaml' as defs %}
-{% set osmap = salt['grains.filter_by']({
-        'default':{
-        },
-
-        'MacOS':  { 'prefix' : '/Applications/Goland',
-                    'homes'  : '/Users',
-                    'command': '/goland',
-                    'osflavour': 'mac',
-        },
-        'Windows':{ 'prefix' : 'C:\\Program files',
-                    'homes'  : 'C:\\Users',
-                    'tmpdir' : 'C:\\temp\\jetbrainstmp\\',
-                    'command': '\\goland.exe',
-                    'osflavour': 'windows',
-        },
-  }, grain="os",
+# start with defaults, merge osmap, then pillar data
+{% set ide = salt['grains.filter_by'](
+    defaults,
+    merge=salt['grains.filter_by'](
+        osmap,
+        grain='os',
+        merge=salt['pillar.get']('goland', {}),
+    ),
+    base='goland',
 ) %}
-{% do defs.goland.update(osmap) %}
-{% set ide = salt['pillar.get']( 'goland', default=defs.goland, merge=True) %}
 
 # Get user's group name from pillar or 'id' command
 {%- if not ide.prefs.group %}

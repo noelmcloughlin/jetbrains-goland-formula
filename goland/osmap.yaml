@@ -1,0 +1,13 @@
+
+MacOS:
+  prefix: '/Applications/Goland'
+  homes: '/Users'
+  command: '/goland'
+  osflavour: 'mac'
+
+Windows:
+  prefix: 'C:\\Program files\\Jetbrains\\'
+  homes: 'C:\\Users'
+  tmpdir: 'C:\\temp\\jetbrainstmp\\'
+  command: '\\goland.exe'
+  osflavour: 'windows'
