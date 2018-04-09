@@ -21,9 +21,8 @@ goland-config:
     - context:
       home: '{{ goland.jetbrains.home }}/goland'
 
-  # Debian alternatives
-  {% if goland.linux.altpriority > 0 %}
-     {% if grains.os_family not in ('Arch',) %}
+  # Linux alternatives
+  {% if goland.linux.altpriority > 0 and grains.os_family not in ('Arch',) %}
 
 # Add goland-home to alternatives system
 goland-home-alt-install:
@@ -35,12 +34,12 @@ goland-home-alt-install:
 
 goland-home-alt-set:
   alternatives.set:
-    - name: golandhome
+    - name: goland-home
     - path: {{ goland.jetbrains.realhome }}
     - onchanges:
       - alternatives: goland-home-alt-install
 
-# Add intelli to alternatives system
+# Add to alternatives system
 goland-alt-install:
   alternatives.install:
     - name: goland
@@ -58,7 +57,6 @@ goland-alt-set:
     - onchanges:
       - alternatives: goland-alt-install
 
-     {% endif %}
   {% endif %}
 
 {% endif %}
