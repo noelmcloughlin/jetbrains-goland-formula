@@ -59,4 +59,17 @@ goland-alt-set:
 
   {% endif %}
 
+  {% if goland.linux.install_desktop_file %}
+goland-global-desktop-file:
+  file.managed:
+    - name: {{ goland.linux.desktop_file }}
+    - source: salt://goland/files/goland.desktop
+    - template: jinja
+    - context:
+      home: {{ goland.jetbrains.realhome }}
+      command: {{ goland.command }}
+      edition: {{ goland.jetbrains.edition }}
+    - onlyif: test -f {{ goland.jetbrains.realhome }}/{{ goland.command }}
+  {% endif %}
+
 {% endif %}
