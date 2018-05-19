@@ -6,8 +6,6 @@ Formula for GOLAND IDE from Jetbrains. Standard edition. For Linux and MacOS.
 
 .. note::
 
-    Use the `EAP VERSION INSTEAD: <https://www.jetbrains.com/go/nextversion/>`_. 
-
     See the full `Salt Formulas installation and usage instructions
     <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
 
