@@ -11,7 +11,7 @@ goland:
     home: /opt/jetbrains
     uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
     #See https://www.jetbrains.com/help/goland/meet-goland.html
-    product: GO 
+    product: GO
     edition:
 
   dl:
@@ -27,6 +27,11 @@ goland:
     symlink: /usr/bin/goland
     #debian alternatives disabled by default. To activate, set nonzero 'altpriority' pillar.
     altpriority: 0
+
+    #On freedesktop.org-compliant desktops, enable Icon on Linux launchers.
+    #Place a .desktop file in e.g. /usr/share/applications
+    install_desktop_file: True
+    desktop_file: /usr/share/applications/goland.desktop
 
   prefs:
     user:
