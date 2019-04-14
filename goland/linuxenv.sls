@@ -31,6 +31,9 @@ goland-home-alt-install:
     - link: '{{ goland.jetbrains.home }}/goland'
     - path: '{{ goland.jetbrains.realhome }}'
     - priority: {{ goland.linux.altpriority }}
+    - retry:
+        attempts: 2
+        until: True
 
 goland-home-alt-set:
   alternatives.set:
@@ -38,6 +41,9 @@ goland-home-alt-set:
     - path: {{ goland.jetbrains.realhome }}
     - onchanges:
       - alternatives: goland-home-alt-install
+    - retry:
+        attempts: 2
+        until: True
 
 # Add to alternatives system
 goland-alt-install:
@@ -49,6 +55,9 @@ goland-alt-install:
     - require:
       - alternatives: goland-home-alt-install
       - alternatives: goland-home-alt-set
+    - retry:
+        attempts: 2
+        until: True
 
 goland-alt-set:
   alternatives.set:
@@ -56,6 +65,9 @@ goland-alt-set:
     - path: {{ goland.jetbrains.realcmd }}
     - onchanges:
       - alternatives: goland-alt-install
+    - retry:
+        attempts: 2
+        until: True
 
   {% endif %}
 
