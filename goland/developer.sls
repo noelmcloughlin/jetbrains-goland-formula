@@ -16,9 +16,9 @@ goland-desktop-shortcut-add:
     - mode: 755
     - template: jinja
     - context:
-      user: {{ goland.prefs.user }}
-      homes: {{ goland.homes }}
-      edition: {{ goland.jetbrains.edition }}
+      user: {{ goland.prefs.user|json }}
+      homes: {{ goland.homes|json }}
+      edition: {{ goland.jetbrains.edition|json }}
     - onlyif: test "`uname`" = "Darwin"
   cmd.run:
     - name: /tmp/mac_shortcut.sh {{ goland.jetbrains.edition }}
@@ -43,9 +43,8 @@ goland-desktop-shortcut-install:
     - template: jinja
     - onlyif: test -f {{ goland.jetbrains.realcmd }}
     - context:
-      home: {{ goland.jetbrains.realhome }}
-      command: {{ goland.command }}
-
+      home: {{ goland.jetbrains.realhome|json }}
+      command: {{ goland.command|json }}
 
   {% if goland.prefs.jarurl or goland.prefs.jardir %}
 

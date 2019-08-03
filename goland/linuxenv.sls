@@ -19,7 +19,7 @@ goland-config:
     - user: root
     - group: root
     - context:
-      home: '{{ goland.jetbrains.home }}/goland'
+      home: '{{ goland.jetbrains.home|json }}/goland'
 
   # Linux alternatives
   {% if goland.linux.altpriority > 0 and grains.os_family not in ('Arch',) %}
@@ -78,9 +78,9 @@ goland-global-desktop-file:
     - source: salt://goland/files/goland.desktop
     - template: jinja
     - context:
-      home: {{ goland.jetbrains.realhome }}
-      command: {{ goland.command }}
-      edition: {{ goland.jetbrains.edition }}
+      home: {{ goland.jetbrains.realhome|json }}
+      command: {{ goland.command|json }}
+      edition: {{ goland.jetbrains.edition|json }}
     - onlyif: test -f {{ goland.jetbrains.realhome }}/{{ goland.command }}
   {% endif %}
 
