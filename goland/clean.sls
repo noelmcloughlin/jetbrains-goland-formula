@@ -13,7 +13,7 @@ include:
 
     {%- else %}
 
-goland-not-available-to-install:
+goland-not-available-to-clean:
   test.show_notification:
     - text: |
         The goland package is unavailable for {{ salt['grains.get']('finger', grains.os_family) }}
