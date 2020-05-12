@@ -17,6 +17,7 @@ goland-formula
 Formula to install Goland on GNU/Linux and MacOS.
 
 .. contents:: **Table of Contents**
+   :depth: 1
 
 General notes
 -------------
