@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.1](https://github.com/saltstack-formulas/jetbrains-goland-formula/compare/v1.0.0...v1.0.1) (2020-06-15)
+
+
+### Bug Fixes
+
+* **edition:** better edition jinja code ([c3460f5](https://github.com/saltstack-formulas/jetbrains-goland-formula/commit/c3460f5be980a9944a858e0e6a4f318d999899f6))
+
+
+### Continuous Integration
+
+* **kitchen+travis:** add new platforms [skip ci] ([c1d9d9c](https://github.com/saltstack-formulas/jetbrains-goland-formula/commit/c1d9d9ca3286ff2dea889aa0f70ccce9293c5da5))
+
+
+### Documentation
+
+* **readme:** impove formatting ([0537b25](https://github.com/saltstack-formulas/jetbrains-goland-formula/commit/0537b252503479f46a51267660f46a0c94dba680))
+
 # [1.0.0](https://github.com/saltstack-formulas/jetbrains-goland-formula/compare/v0.2.0...v1.0.0) (2020-05-21)
 
 
