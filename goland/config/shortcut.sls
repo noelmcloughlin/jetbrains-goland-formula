@@ -28,7 +28,7 @@ goland-config-file-file-managed-desktop-shortcut_file:
     - template: jinja
     - context:
         appname: {{ goland.pkg.name }}
-        edition: {{ goland.edition|json }}
+        edition: {{ '' if 'edition' not in goland else goland.edition|json }}
         command: {{ goland.command|json }}
               {%- if goland.pkg.use_upstream_macapp %}
         path: {{ goland.pkg.macapp.path }}

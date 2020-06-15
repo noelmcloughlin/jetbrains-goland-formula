@@ -55,7 +55,7 @@ goland-macos-app-install-macpackage:
     - template: jinja
     - context:
       appname: {{ goland.pkg.name }}
-      edition: {{ goland.edition }}
+      edition: {{ '' if 'edition' not in goland else goland.edition }}
       user: {{ goland.identity.user }}
       homes: {{ goland.dir.homes }}
   cmd.run:
