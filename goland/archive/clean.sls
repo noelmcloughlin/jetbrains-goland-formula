@@ -9,4 +9,4 @@ goland-package-archive-clean-file-absent:
   file.absent:
     - names:
       - {{ goland.pkg.archive.path }}
-      - /usr/local/jetbrains/goland-{{ goland.edition }}-*
+      - /usr/local/jetbrains/goland-*

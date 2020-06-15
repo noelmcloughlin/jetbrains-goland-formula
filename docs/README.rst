@@ -55,7 +55,7 @@ Available states
    :local:
 
 ``goland``
-^^^^^^^^
+^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
@@ -64,28 +64,28 @@ manages Goland configuration file and then
 configures the development environment.
 
 ``goland.archive``
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 This state will install Goland from archive only.
 
 ``goland.macapp``
-^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 This state will install Goland from source only.
 
 ``goland.config``
-^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 This state will configure npmrc and/or environment and has a dependency on ``goland.install``
 via include list.
 
 ``goland.linuxenv``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 This state will install some Goland linux-alternatives on GNU/Linux.
 
 ``goland.clean``
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
@@ -94,25 +94,25 @@ removes the configuration file and
 then uninstalls the package.
 
 ``goland.config.clean``
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove the configuration of Goland and has a
 dependency on ``goland.package.clean`` via include list.
 
 ``goland.archive.clean``
-^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Goland package and has a dependency on
 ``goland.config.clean`` via include list.
 
 ``goland.macapp.clean``
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Goland package and has a dependency on
 ``goland.config.clean`` via include list.
 
 ``goland.linuxenv.clean``
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Goland linux-alternatives on GNU/Linux.
 

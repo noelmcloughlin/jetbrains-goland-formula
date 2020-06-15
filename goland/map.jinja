@@ -15,24 +15,28 @@
       )
     )
 %}
-{%- set goland = salt['grains.filter_by']( {'defaults': defaults}, default='defaults', merge=_config) %}
+{%- set g = salt['grains.filter_by']( {'defaults': defaults}, default='defaults', merge=_config) %}
 
-{%- set pcode = goland.product ~ goland.edition if goland.edition else goland.product %}
-{%- set jdata = salt['cmd.run']('curl -s -L {0}{1}'.format(goland.pkg.archive.uri, pcode))|load_yaml %}
-{%- do goland.update({ 'version': jdata[ pcode ][0]['version'] }) %}
+{%- set edition = '' if 'edition' not in g else g.edition %}
+{%- set pcode = g.product ~ edition %}
+{%- set jdata = salt['cmd.run']('curl -s -L {0}{1}'.format(g.pkg.archive.uri, pcode))|load_yaml %}
+{%- do g.update({ 'version': jdata[ pcode ][0]['version'] }) %}
 
-{%- set dirname = 'goland-%s-%s'|format( goland.edition if goland.edition else '', goland.version) %}
-{%- set url = jdata[ pcode ][0]['downloads'][ goland.flavour ]['link'] %}
-{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ goland.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
+{%- set dirname = 'g-%s-%s'|format( edition, g.version) %}
+{%- set url = jdata[ pcode ][0]['downloads'][ g.flavour ]['link'] %}
+{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ g.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
 
-{%- if goland.pkg.use_upstream_archive %}
-       {%- do goland.pkg.archive.update({'name': goland.dir.archive ~ '/' ~ dirname,
-                                           'path': goland.dir.archive ~ '/' ~ dirname,
-                                           'source': url,
-                                           'source_hash': hash }) %}
+{%- if g.pkg.use_upstream_archive %}
+    {%- do g.pkg.archive.update({'name': g.dir.archive ~ '/' ~ dirname,
+                                 'path': g.dir.archive ~ '/' ~ dirname,
+                                 'source': url,
+                                 'source_hash': hash }) %}
+{%- endif %}
+{%- if g.pkg.use_upstream_macapp %}
+       {%- do g.pkg.macapp.update({'name': '/Applications',
+                                   'path': '/Applications',
+                                   'source': url,
+                                   'source_hash': hash }) %}
 {%- endif %}
 
-{%- if goland.pkg.use_upstream_macapp %}
-       {%- do goland.pkg.macapp.update({
-              'name': '/Applications', 'path': '/Applications', 'source': url, 'source_hash': hash }) %}
-{%- endif %}
+{%- set goland = g %}

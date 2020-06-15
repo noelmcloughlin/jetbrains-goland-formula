@@ -28,7 +28,7 @@ goland-config-file-file-managed-environ_file:
     - template: jinja
     - context:
               {%- if goland.pkg.use_upstream_macapp %}
-        path: '/Applications/{{ goland.pkg.name }}{{ '\ %sE'|format(goland.edition) }}.app/Contents/MacOS'
+        path: '/Applications/{{ goland.pkg.name }}{{ '' if 'edition' not in goland else '\ %sE'|format(goland.edition) }}.app/Contents/MacOS'
               {%- else %}
         path: {{ goland.pkg.archive.path }}/bin
               {%- endif %}
