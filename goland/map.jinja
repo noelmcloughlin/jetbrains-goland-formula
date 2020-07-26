@@ -19,12 +19,12 @@
 
 {%- set edition = '' if 'edition' not in g else g.edition %}
 {%- set pcode = g.product ~ edition %}
-{%- set jdata = salt['cmd.run']('curl -s -L {0}{1}'.format(g.pkg.archive.uri, pcode))|load_yaml %}
+{%- set jdata = salt['cmd.run']('curl -s -L "{0}{1}"'.format(g.pkg.archive.uri, pcode))|load_yaml %}
 {%- do g.update({ 'version': jdata[ pcode ][0]['version'] }) %}
 
 {%- set dirname = 'g-%s-%s'|format( edition, g.version) %}
 {%- set url = jdata[ pcode ][0]['downloads'][ g.flavour ]['link'] %}
-{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ g.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
+{%- set hash  = salt['cmd.run']('curl -L -s "{0}"'.format( jdata[ pcode ][0]['downloads'][ g.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
 
 {%- if g.pkg.use_upstream_archive %}
     {%- do g.pkg.archive.update({'name': g.dir.archive ~ '/' ~ dirname,
