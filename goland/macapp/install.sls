@@ -49,17 +49,21 @@ goland-macos-app-install-macpackage:
     - onchanges:
       - cmd: goland-macos-app-install-curl
   file.managed:
-    - name: /tmp/mac_shortcut.sh
-    - source: salt://goland/files/mac_shortcut.sh
+    - name: /tmp/mac_shortcut.sh.jinja
+    - source: salt://goland/files/mac_shortcut.sh.jinja
     - mode: 755
     - template: jinja
     - context:
-      appname: {{ goland.pkg.name }}
-      edition: {{ '' if 'edition' not in goland else goland.edition }}
+      appname: {{ goland.dir.path }}/{{ goland.pkg.name }}
+      edition: {{ '' if not goland.edition else ' %sE'|format(goland.edition) }}
       user: {{ goland.identity.user }}
       homes: {{ goland.dir.homes }}
+    - require:
+      - macpackage: goland-macos-app-install-macpackage
+    - onchanges:
+      - macpackage: goland-macos-app-install-macpackage
   cmd.run:
-    - name: /tmp/mac_shortcut.sh
+    - name: /tmp/mac_shortcut.sh.jinja
     - runas: {{ goland.identity.user }}
     - require:
       - file: goland-macos-app-install-macpackage

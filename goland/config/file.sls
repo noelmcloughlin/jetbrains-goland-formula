@@ -28,12 +28,7 @@ goland-config-file-managed-config_file:
     - makedirs: True
     - template: jinja
     - context:
-              {%- if goland.pkg.use_upstream_macapp %}
-        path: {{ goland.pkg.macapp.path }}
-              {%- else %}
-        path: {{ goland.pkg.archive.path }}
-              {%- endif %}
-        config: {{ goland.config|json }}
+      config: {{ goland.config|json }}
     - require:
       - sls: {{ sls_package_install }}
 

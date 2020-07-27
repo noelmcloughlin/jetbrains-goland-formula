@@ -8,5 +8,9 @@
 goland-package-archive-clean-file-absent:
   file.absent:
     - names:
-      - {{ goland.pkg.archive.path }}
-      - /usr/local/jetbrains/goland-*
+      - {{ goland.dir.tmp }}
+              {%- if grains.os == 'MacOS' %}
+      - {{ goland.dir.path }}/{{ goland.pkg.name }}*{{ goland.edition }}*.app
+              {%- else %}
+      - {{ goland.dir.path }}
+              {%- endif %}

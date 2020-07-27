@@ -10,7 +10,11 @@ goland-macos-app-clean-files:
   file.absent:
     - names:
       - {{ goland.dir.tmp }}
-      - /Applications/{{ goland.pkg.name }}{{ '' if 'edition' not in goland else '\ %sE'|format(goland.edition) }}.app
+                  {%- if grains.os == 'MacOS' %}
+      - {{ goland.dir.path }}/{{ goland.pkgoland.name }}*{{ goland.edition }}*.app
+                  {%- else %}
+      - {{ goland.dir.path }}
+                  {%- endif %}
 
     {%- else %}
 

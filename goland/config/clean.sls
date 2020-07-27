@@ -26,7 +26,7 @@ goland-config-clean-file-absent:
                {%- if grains.kernel|lower == 'linux' %}
       - {{ goland.linux.desktop_file }}
                {%- elif grains.os == 'MacOS' %}
-      - {{ goland.dir.homes }}/{{ goland.identity.user }}/Desktop/{{ goland.pkg.name }}{{ '' if 'edition' not in goland else ' %sE'|format(goland.edition) }}  # noqa 204
+      - {{ goland.dir.homes }}/{{ goland.identity.user }}/Desktop/{{ goland.pkg.name }}*{{ goland.edition }}*
                {%- endif %}
     - require:
       - sls: {{ sls_package_clean }}

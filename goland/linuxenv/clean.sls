@@ -11,21 +11,21 @@ goland-linuxenv-home-file-absent:
   file.absent:
     - names:
       - /opt/goland
-      - {{ goland.pkg.archive.path }}
+      - {{ goland.dir.path }}
 
         {% if goland.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
 
 goland-linuxenv-home-alternatives-clean:
   alternatives.remove:
     - name: golandhome
-    - path: {{ goland.pkg.archive.path }}
+    - path: {{ goland.dir.path }}
     - onlyif: update-alternatives --get-selections |grep ^golandhome
 
 
 goland-linuxenv-executable-alternatives-clean:
   alternatives.remove:
     - name: goland
-    - path: {{ goland.pkg.archive.path }}/goland
+    - path: {{ goland.dir.path }}/{{ goland.command }}
     - onlyif: update-alternatives --get-selections |grep ^goland
 
         {%- else %}

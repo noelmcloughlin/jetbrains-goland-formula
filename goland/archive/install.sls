@@ -11,7 +11,7 @@ goland-package-archive-install:
     - require_in:
       - file: goland-package-archive-install
   file.directory:
-    - name: {{ goland.pkg.archive.path }}
+    - name: {{ goland.dir.path }}
     - user: {{ goland.identity.rootuser }}
     - group: {{ goland.identity.rootgroup }}
     - mode: 755
@@ -39,7 +39,7 @@ goland-package-archive-install:
 goland-archive-install-file-symlink-goland:
   file.symlink:
     - name: /usr/local/bin/goland
-    - target: {{ goland.pkg.archive.path }}/{{ goland.command }}
+    - target: {{ goland.dir.path }}/{{ goland.command }}
     - force: True
     - onlyif: {{ grains.kernel|lower != 'windows' }}
     - require:
