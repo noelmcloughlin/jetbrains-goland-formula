@@ -11,7 +11,7 @@ goland-macos-app-clean-files:
     - names:
       - {{ goland.dir.tmp }}
                   {%- if grains.os == 'MacOS' %}
-      - {{ goland.dir.path }}/{{ goland.pkgoland.name }}*{{ goland.edition }}*.app
+      - {{ goland.dir.path }}/{{ goland.pkg.name }}*{{ goland.edition }}*.app
                   {%- else %}
       - {{ goland.dir.path }}
                   {%- endif %}
