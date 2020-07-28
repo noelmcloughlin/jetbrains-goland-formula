@@ -10,8 +10,8 @@
 goland-linuxenv-home-file-symlink:
   file.symlink:
     - name: /opt/goland
-    - target: {{ goland.pkg.archive.path }}
-    - onlyif: test -d '{{ goland.pkg.archive.path }}'
+    - target: {{ goland.dir.path }}
+    - onlyif: test -d '{{ goland.dir.path }}'
     - force: True
 
         {% if goland.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
@@ -20,14 +20,14 @@ goland-linuxenv-home-alternatives-install:
   alternatives.install:
     - name: golandhome
     - link: /opt/goland
-    - path: {{ goland.pkg.archive.path }}
+    - path: {{ goland.dir.path }}
     - priority: {{ goland.linux.altpriority }}
     - retry: {{ goland.retry_option|json }}
 
 goland-linuxenv-home-alternatives-set:
   alternatives.set:
     - name: golandhome
-    - path: {{ goland.pkg.archive.path }}
+    - path: {{ goland.dir.path }}
     - onchanges:
       - alternatives: goland-linuxenv-home-alternatives-install
     - retry: {{ goland.retry_option|json }}
@@ -36,7 +36,7 @@ goland-linuxenv-executable-alternatives-install:
   alternatives.install:
     - name: goland
     - link: {{ goland.linux.symlink }}
-    - path: {{ goland.pkg.archive.path }}/{{ goland.command }}
+    - path: {{ goland.dir.path }}/{{ goland.command }}
     - priority: {{ goland.linux.altpriority }}
     - require:
       - alternatives: goland-linuxenv-home-alternatives-install
@@ -46,7 +46,7 @@ goland-linuxenv-executable-alternatives-install:
 goland-linuxenv-executable-alternatives-set:
   alternatives.set:
     - name: goland
-    - path: {{ goland.pkg.archive.path }}/{{ goland.command }}
+    - path: {{ goland.dir.path }}/{{ goland.command }}
     - onchanges:
       - alternatives: goland-linuxenv-executable-alternatives-install
     - retry: {{ goland.retry_option|json }}

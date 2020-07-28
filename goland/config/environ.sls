@@ -27,11 +27,13 @@ goland-config-file-file-managed-environ_file:
     - makedirs: True
     - template: jinja
     - context:
-              {%- if goland.pkg.use_upstream_macapp %}
-        path: '/Applications/{{ goland.pkg.name }}{{ '' if 'edition' not in goland else '\ %sE'|format(goland.edition) }}.app/Contents/MacOS'
-              {%- else %}
-        path: {{ goland.pkg.archive.path }}/bin
-              {%- endif %}
-        environ: {{ goland.environ|json }}
+      environ: {{ goland.environ|json }}
+                      {%- if goland.pkg.use_upstream_macapp %}
+      edition:  {{ '' if not goland.edition else ' %sE'|format(goland.edition) }}.app/Contents/MacOS
+      appname: {{ goland.dir.path }}/{{ goland.pkg.name }}
+                      {%- else %}
+      edition: ''
+      appname: {{ goland.dir.path }}/bin
+                      {%- endif %}
     - require:
       - sls: {{ sls_package_install }}
