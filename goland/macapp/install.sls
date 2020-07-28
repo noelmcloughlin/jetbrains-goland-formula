@@ -15,7 +15,9 @@ goland-macos-app-install-curl:
     - name: curl
   cmd.run:
     - name: curl -Lo {{ goland.dir.tmp }}/goland-{{ goland.version }} "{{ goland.pkg.macapp.source }}"
-    - unless: test -f {{ goland.dir.tmp }}/goland-{{ goland.version }}
+    - unless:
+      - test -f {{ goland.dir.tmp }}/goland-{{ goland.version }}
+      - test -d {{ goland.dir.path }}/{{ goland.pkg.name }}{{ '' if not goland.edition else ' %sE'|format(goland.edition) }}  # noqa 204
     - require:
       - file: goland-macos-app-install-curl
       - pkg: goland-macos-app-install-curl
