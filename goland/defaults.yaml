@@ -54,7 +54,9 @@ goland:
   linux:
     symlink: /usr/local/bin/goland
     altpriority: 0
+
+  shortcut:
     # On freedesktop.org-compliant desktops, enable Icon on Linux launchers.
     # Place a .desktop file in e.g. /usr/share/applications
-    install_desktop_file: true
-    desktop_file: /usr/share/applications/goland.desktop
+    install: true
+    file: /usr/share/applications/goland.desktop

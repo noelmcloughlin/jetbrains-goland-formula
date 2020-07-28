@@ -24,7 +24,7 @@ goland-config-clean-file-absent:
       - {{ goland.environ_file }}
                {%- endif %}
                {%- if grains.kernel|lower == 'linux' %}
-      - {{ goland.linux.desktop_file }}
+      - {{ goland.shortcut.file }}
                {%- elif grains.os == 'MacOS' %}
       - {{ goland.dir.homes }}/{{ goland.identity.user }}/Desktop/{{ goland.pkg.name }}*{{ goland.edition }}*
                {%- endif %}
