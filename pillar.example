@@ -2,6 +2,8 @@
 # vim: ft=yaml
 ---
 goland:
+  # linux (default), mac (default), windowsZip (default), windows (setup.exe)
+  flavour: linux
   environ:
     a: b
   pkg:
